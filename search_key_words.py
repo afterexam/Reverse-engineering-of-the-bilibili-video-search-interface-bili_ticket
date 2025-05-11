@@ -19,16 +19,32 @@ headers = {
     "sec-fetch-site": "same-site",
     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
 }
-cookies = {
-       "bili_ticket": get_ck(),
 
-}
-url = "https://api.bilibili.com/x/web-interface/wbi/search/all/v2"
-params = {
 
-    "keyword": "我要玩原神",
 
-}
-response = requests.get(url, headers=headers, cookies=cookies, params=params).json()
+def main(i):
+    cookies = {
+        "bili_ticket": get_ck(),
 
-print(response)
+    }
+    url = "https://api.bilibili.com/x/web-interface/wbi/search/all/v2"
+    params = {
+        "page": i,
+        "keyword": "原神启动",
+
+    }
+    response = requests.get(url, headers=headers, cookies=cookies, params=params).json()
+    # print(response)
+    try:
+        video_list = response['data']['result'][11]['data']
+        print(len(video_list))
+        for i in video_list:
+            print(f"{i['title']}     作者: {i['author']}")
+
+    except:
+        print(response)
+
+# print(response)
+if __name__ == '__main__':
+    for i in range(1,100):
+        main(i)

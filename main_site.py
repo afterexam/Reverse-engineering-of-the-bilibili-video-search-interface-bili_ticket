@@ -21,5 +21,7 @@ url = "https://www.bilibili.com/"
 def get_b_nut():
     response = requests.get(url, headers=headers)
     dic =  dict(response.cookies.items())
-    print(dic)
     return dic['b_nut']
+
+
+
